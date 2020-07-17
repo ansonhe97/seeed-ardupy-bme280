@@ -7,6 +7,6 @@
     },
     "dependencies": [{
         "name": "Seeed_Arduino_BME280",
-        "url": "https://github.com/Seeed-Studio/Seeed_Arduino_BME280.git"
+        "url": "https://github.com/Seeed-Studio/Grove_BME280.git"
     }]
 }
