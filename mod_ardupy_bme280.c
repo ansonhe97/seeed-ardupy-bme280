@@ -36,7 +36,7 @@ void common_hal_bme280_deinit(abstract_module_t *self);
 float common_hal_bme280_get_temperature(abstract_module_t *self);
 uint32_t common_hal_bme280_get_pressure(abstract_module_t *self);
 uint32_t common_hal_bme280_get_humidity(abstract_module_t *self);
-// float common_hal_bme280_calc_altitude(abstract_module_t *self, uint8_t value);
+float common_hal_bme280_calc_altitude(abstract_module_t *self, uint8_t value);
 extern const mp_obj_type_t grove_bme280_type;
 
 m_generic_make(bme280) {
@@ -65,6 +65,11 @@ void bme280_obj_attr(mp_obj_t self_in, qstr attr, mp_obj_t *dest){
             dest[0] = mp_obj_new_int(value);
             return;
         }
+        else if (attr == MP_QSTR_altitude) {
+            value = common_hal_bme280_cacl_altitude(self);
+            dest[0] = mp_obj_new_float(value);
+            return;
+        }
     }
     generic_method_lookup(self_in, attr, dest);
 }
@@ -74,7 +79,7 @@ const mp_rom_map_elem_t bme280_locals_dict_table[] = {
     { MP_ROM_QSTR(MP_QSTR_deinit),    MP_ROM_PTR(&bme280_deinit_obj) },
     { MP_ROM_QSTR(MP_QSTR___enter__), MP_ROM_PTR(&default___enter___obj) },
     { MP_ROM_QSTR(MP_QSTR___exit__),  MP_ROM_PTR(&bme280_obj___exit___obj) },
-}
+};
 
 MP_DEFINE_CONST_DICT(bme280_locals_dict, bme280_locals_dict_table);
 

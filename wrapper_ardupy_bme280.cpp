@@ -25,7 +25,7 @@
  */
 
 
-#include "Grove_BME280/Seeed_BME280.h"
+#include "Seeed_Arduino_BME280/Seeed_BME280.h"
 extern "C"{
 #include "py/mphal.h"
 #include "py/nlr.h"
@@ -46,15 +46,15 @@ extern "C" {
         bme280.~BME280();
     }
     float common_hal_bme280_get_temperature(abstract_module_t *self){
-        return bme280.get_temperature();
+        return bme280.getTemperature();
     }
     uint32_t common_hal_bme280_get_pressure(abstract_module_t *self){
-        return bme280.get_pressure();
+        return bme280.getPressure();
     }
     uint32_t common_hal_bme280_get_humidity(abstract_module_t *self){
-        return bme280.get_humidity();
+        return bme280.getHumidity();
     }
-    // float common_hal_bme280_calc_altitude(abstract_module_t *self, float pressure){
-    //     return bme280.calc_altitude(pressure);
-    // }
+    float common_hal_bme280_calc_altitude(abstract_module_t *self, float pressure){
+        return bme280.calcAltitude(pressure);
+    }
 }
