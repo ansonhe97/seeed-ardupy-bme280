@@ -54,7 +54,4 @@ extern "C" {
     uint32_t common_hal_bme280_get_humidity(abstract_module_t *self){
         return bme280.getHumidity();
     }
-    float common_hal_bme280_calc_altitude(abstract_module_t *self, float pressure){
-        return bme280.calcAltitude(pressure);
-    }
 }

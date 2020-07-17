@@ -36,7 +36,6 @@ void common_hal_bme280_deinit(abstract_module_t *self);
 float common_hal_bme280_get_temperature(abstract_module_t *self);
 uint32_t common_hal_bme280_get_pressure(abstract_module_t *self);
 uint32_t common_hal_bme280_get_humidity(abstract_module_t *self);
-float common_hal_bme280_calc_altitude(abstract_module_t *self, uint8_t value);
 extern const mp_obj_type_t grove_bme280_type;
 
 m_generic_make(bme280) {
@@ -49,10 +48,11 @@ m_generic_make(bme280) {
 void bme280_obj_attr(mp_obj_t self_in, qstr attr, mp_obj_t *dest){
     abstract_module_t *self = (abstract_module_t *)self_in;
     uint32_t value;
+    float number;
     if (dest[0] == MP_OBJ_NULL) {
         if (attr == MP_QSTR_temperature) {
-            value = common_hal_bme280_get_temperature(self);
-            dest[0] = mp_obj_new_float(value); // NOT SURE mp_obj_new_float
+            number = common_hal_bme280_get_temperature(self);
+            dest[0] = mp_obj_new_float(number);
             return;
         }
         else if (attr == MP_QSTR_pressure) {
@@ -60,14 +60,9 @@ void bme280_obj_attr(mp_obj_t self_in, qstr attr, mp_obj_t *dest){
             dest[0] = mp_obj_new_int(value);
             return;
         }
-        else if (attr == MP_QSTR_temperature) {
+        else if (attr == MP_QSTR_humidity) {
             value = common_hal_bme280_get_humidity(self);
             dest[0] = mp_obj_new_int(value);
-            return;
-        }
-        else if (attr == MP_QSTR_altitude) {
-            value = common_hal_bme280_cacl_altitude(self);
-            dest[0] = mp_obj_new_float(value);
             return;
         }
     }
